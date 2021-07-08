@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@200;400;500;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
+
+:root {
+  --red: #e65252;
+}
+.logo {
+  color: #fff;
+
+}
+.logo img {
+  height: 3rem;
+  width: 5.5rem;
+}
+.navbar .link {
+  margin: 0 1rem ;
+  font-size: 2rem;
+  color: #fff;
+  transition: all 0.2s linear;
+}
+header .navbar .link:hover {
+  margin: 0 1.5rem ;
+  text-decoration: none;
+  transition: all 0.2s linear;
+}
+#menu-bar {
+  font-size: 3rem;
+  cursor: pointer;
+  color: #fff;
+  border: 0.1 solid #666;
+  border-radius: 0.3rem;
+  padding: 0.5rem 1.5rem;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  #menu-bar {
+    display: initial;
+  }
+  .navbar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #f7f7f7;
+    border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    /* direction: ltr; */
+  }
+  .navbar.active {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .navbar .link {
+    margin: 1.5rem;
+    padding: 1.5rem;
+    width: 100%;
+    display: block;
+    border: 0.2rem solid rgba(0, 0, 0, 0.1);
+    border-right: 0.5rem solid var(--red);
+    background: #fff;
+    color: var(--red);
+  }
+}
