@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import img from "../assets/homeimg.jpg";
 import "./home.css";
 import styled from "styled-components";
@@ -13,8 +13,14 @@ import serrIcon from "../assets/serr.png";
 import googleIcon from "../assets/google.png";
 import facebokIcon from "../assets/facebook.png";
 import { useForm } from "../shared/components/form-hook";
-import firebase from "firebase/app";
-import "firebase/auth";
+// import firebase from "firebase/app";
+// import "firebase/auth";
+// import Cookies from "js-cookie";
+import { useHistory } from "react-router-dom";
+// import axios from "axios";
+// import Error from "react-500";
+import { useHttpCleint } from "../shared/components/http-hook";
+import ErrorModal from "../shared/components/ErrorModal";
 
 export const Button = styled.button`
   background: ${({ disabled }) => (disabled ? "#d3d3d3" : "#e65252")};
@@ -36,7 +42,10 @@ export const Button = styled.button`
 
 const Home = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const { isError, isLoading, error, errorHandler, sendRequset, setIsError } =
+    useHttpCleint();
   const auth = useContext(AuthContext);
+  const history = useHistory();
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -75,33 +84,74 @@ const Home = () => {
     setIsLoginMode((prev) => !prev);
   };
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((userCredintials) => {
-      console.log(userCredintials);
-    });
-  }, []);
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged((userCredintials) => {
+  //     console.log(userCredintials);
+  //   });
+  // }, []);
+
   const googleIconClickHandler = (e) => {
-    firebase
-      .auth()
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((userCredintials) => {
-        console.log(userCredintials);
-        auth.logIn(userCredintials.user.uid);
-      });
+    e.preventDefault();
   };
+
   const facebookIconClickHandler = (e) => {
     e.preventDefault();
   };
 
-  console.log(formState.isValid);
+  const onFormSubmit = async (e) => {
+    e.preventDefault();
+    if (isLoginMode) {
+      try {
+        const data = await sendRequset(
+          "http://localhost:5000/api/user/login",
+          "POST",
+          JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+          { "Content-Type": "application/json" }
+        );
+        auth.logIn(data.userId, data.token);
+      } catch (error) {}
+    } else {
+      try {
+        const data = await sendRequset(
+          "http://localhost:5000/api/user/signup",
+          "POST",
+          JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+          {
+            "Content-Type": "application/json",
+          }
+        );
+        auth.logIn(data.userId, data.token);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
+
   return (
     <>
+      {isError && (
+        <ErrorModal
+          showModal={isError}
+          setShowModal={setIsError}
+          header={"something went wrong"}
+          body={error}
+          buttonText={"cancel"}
+          oncancel={errorHandler}
+        />
+      )}
       <section className="homeSection" id="home">
         <div className="image">
           <img src={img} alt="home_image" />
         </div>
         <div className="form-wrapper">
-          <form className="log-form">
+          <form className="log-form" onSubmit={onFormSubmit}>
             <img src={serrIcon} className="forrm-icon" />
             {!isLoginMode ? (
               <Input

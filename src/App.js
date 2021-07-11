@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
   HashRouter as Router,
   Route,
@@ -14,55 +14,48 @@ import { AuthContext } from "./shared/context/auth-context";
 import Nav from "./shared/components/nav";
 import About from "./pages/aboutus";
 import Sidebar from "./shared/components/sidebar";
-import firebase from "firebase/app";
-import "firebase/auth";
-import gifLoader from "./assets/gifLoader.gif";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState();
+  const [token, setToken] = useState(false); //||window.localStorage.getItem("auth")==="true"
   const [userId, setUserId] = useState();
   const [isOpen, setIsOpen] = useState();
-  const [isLoading, setIsLoading] = useState(true);
 
   const toggle = () => {
     setIsOpen(!isOpen);
   };
 
-  const logIn = useCallback((uid) => {
-    setIsLoggedIn(true);
+  const logIn = useCallback((uid,token) => {
+    setToken(true);
     setUserId(uid);
   }, []);
 
   const logOut = useCallback(() => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        console.log("signed out successfully");
-        setIsLoggedIn(false);
-        setUserId(null);
-      });
+    //   firebase
+    //     .auth()
+    //     .signOut()
+    //     .then(() => {
+    //       console.log("signed out successfully");
+    setToken(null);
+    setUserId(null);
+    //     });
   }, []);
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((userCredintials) => {
-      console.log(userCredintials);
-      if (!userCredintials) {
-        setIsLoggedIn(false);
-      } else {
-        setIsLoggedIn(true);
-      }
-      setInterval(() => {
-        setIsLoading(false);
-      }, 1000);
-    });
-  }, []);
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged((userCredintials) => {
+  //     console.log(userCredintials);
+  //     if (!userCredintials) {
+  //       setIsLoggedIn(false);
+  //     } else {
+  //       setIsLoggedIn(true);
+  //     }
+  //   });
+  // }, []);
 
   let routes;
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Switch>
-        <Route path="/" exact>
+        <Route path="/search" exact>
           <Search />
         </Route>
         <Route path="/:uid" exact>
@@ -77,7 +70,7 @@ const App = () => {
         <Route path="/about" exact>
           <About />
         </Route>
-        <Redirect to="/" />
+        <Redirect to="/search" />
       </Switch>
     );
   } else {
@@ -103,15 +96,13 @@ const App = () => {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
+        isLoggedIn: !!token,
+        token:token,
         logIn: logIn,
         logOut: logOut,
         userId: userId,
       }}
     >
-      <div className={`loader-container ${!isLoading && "fade-out"}`}>
-        <img src={gifLoader} />
-      </div>
       <Router>
         <header>
           <Sidebar isOpen={isOpen} toggle={toggle} />
