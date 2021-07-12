@@ -23,7 +23,6 @@ export const useHttpCleint = () => {
         activeHttpRequest.current = activeHttpRequest.current.filter(
           (reqCtrl) => reqCtrl !== httpAbortController
         );
-        console.log(data);
         if (!response.ok) {
           throw new Error(data.message);
         }

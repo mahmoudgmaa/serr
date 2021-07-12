@@ -21,6 +21,7 @@ import { useHistory } from "react-router-dom";
 // import Error from "react-500";
 import { useHttpCleint } from "../shared/components/http-hook";
 import ErrorModal from "../shared/components/ErrorModal";
+import gifLoader from "../assets/gifLoader.gif";
 
 export const Button = styled.button`
   background: ${({ disabled }) => (disabled ? "#d3d3d3" : "#e65252")};
@@ -103,7 +104,7 @@ const Home = () => {
     if (isLoginMode) {
       try {
         const data = await sendRequset(
-          "http://localhost:5000/api/user/login",
+          "https://serr-secret.herokuapp.com/api/user/login",
           "POST",
           JSON.stringify({
             email: formState.inputs.email.value,
@@ -116,7 +117,7 @@ const Home = () => {
     } else {
       try {
         const data = await sendRequset(
-          "http://localhost:5000/api/user/signup",
+          "https://serr-secret.herokuapp.com/api/user/signup",
           "POST",
           JSON.stringify({
             name: formState.inputs.name.value,
@@ -146,6 +147,9 @@ const Home = () => {
           oncancel={errorHandler}
         />
       )}
+      <div className={`loader-container ${!isLoading && "fade-out"}`}>
+        <img src={gifLoader} />
+      </div>
       <section className="homeSection" id="home">
         <div className="image">
           <img src={img} alt="home_image" />
@@ -153,6 +157,7 @@ const Home = () => {
         <div className="form-wrapper">
           <form className="log-form" onSubmit={onFormSubmit}>
             <img src={serrIcon} className="forrm-icon" />
+            <h4>The website is under contruction</h4>
             {!isLoginMode ? (
               <Input
                 element="input"

@@ -16,7 +16,7 @@ import About from "./pages/aboutus";
 import Sidebar from "./shared/components/sidebar";
 
 const App = () => {
-  const [token, setToken] = useState(false); //||window.localStorage.getItem("auth")==="true"
+  const [token, setToken] = useState(false||!!window.localStorage.getItem("token")); //||window.localStorage.getItem("auth")==="true"
   const [userId, setUserId] = useState();
   const [isOpen, setIsOpen] = useState();
 
@@ -24,9 +24,11 @@ const App = () => {
     setIsOpen(!isOpen);
   };
 
-  const logIn = useCallback((uid,token) => {
-    setToken(true);
+  const logIn = useCallback((uid, token) => {
+    setToken(token);
     setUserId(uid);
+    window.localStorage.setItem("token", token);
+    window.localStorage.setItem("uid", uid);
   }, []);
 
   const logOut = useCallback(() => {
@@ -58,7 +60,7 @@ const App = () => {
         <Route path="/search" exact>
           <Search />
         </Route>
-        <Route path="/:uid" exact>
+        <Route path="/u/:uid" exact>
           <UserLanding />
         </Route>
         <Route path="/myMessages" exact>
@@ -79,7 +81,7 @@ const App = () => {
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/:uid" exact>
+        <Route path="/u/:uid" exact>
           <UserLanding />
         </Route>
         <Route path="/search" exact>
@@ -97,7 +99,7 @@ const App = () => {
     <AuthContext.Provider
       value={{
         isLoggedIn: !!token,
-        token:token,
+        token: token,
         logIn: logIn,
         logOut: logOut,
         userId: userId,
