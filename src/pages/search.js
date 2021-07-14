@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import SearchBar from "material-ui-search-bar";
 import "./search.css";
-import { useHttpCleint } from "../shared/components/http-hook";
+import { useHttpCleint } from "../hooks/http-hook";
 import styled from "styled-components";
 import UserItem from "../shared/components/userItem";
-import logo from "../assets/serr.png"
+import logo from "../assets/serr.png";
 
 const ItemsContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: 54%;
+  background: #fff;
   position: relative;
-  padding-top: 5rem;
+  border-radius: 10px;
 `;
 const SearchWrapper = styled.div`
-  width: 70%;
+  width: 50%;
   height: 5.5rem;
   justify-content: center;
   align-items: center;
@@ -39,10 +40,13 @@ const Search = () => {
   return (
     <>
       <section className="search-container">
-          <img src={logo} style={{
-              width: "10rem",
-              height: "10rem",
-          }}/>
+        <img
+          src={logo}
+          style={{
+            width: "10rem",
+            height: "10rem",
+          }}
+        />
         <SearchWrapper>
           <SearchBar
             value={searchValue}
@@ -55,7 +59,7 @@ const Search = () => {
           />
         </SearchWrapper>
         <ItemsContainer>
-          {searchedUsers.map((user) => {
+          {searchedUsers.slice(0, 5).map((user) => {
             return <UserItem name={user.name} img={user.img} />;
           })}
         </ItemsContainer>

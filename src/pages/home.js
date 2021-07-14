@@ -12,14 +12,14 @@ import { AuthContext } from "../shared/context/auth-context";
 import serrIcon from "../assets/serr.png";
 import googleIcon from "../assets/google.png";
 import facebokIcon from "../assets/facebook.png";
-import { useForm } from "../shared/components/form-hook";
+import { useForm } from "../hooks/form-hook";
 // import firebase from "firebase/app";
 // import "firebase/auth";
 // import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 // import axios from "axios";
 // import Error from "react-500";
-import { useHttpCleint } from "../shared/components/http-hook";
+import { useHttpCleint } from "../hooks/http-hook";
 import ErrorModal from "../shared/components/ErrorModal";
 import gifLoader from "../assets/gifLoader.gif";
 

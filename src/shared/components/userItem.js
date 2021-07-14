@@ -2,18 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 const ItemWrapper = styled.div`
-  width: 70%;
+  width: 100%;
   height: 8rem;
   align-items: center;
-  border-radius: 15px;
-  border-color: #e65252;
-  border-width: 3px;
+  border-color: #d3d3d3;
+  border-width: 1px 0 0 0;
   border-style: solid;
   display: flex;
-  background: #fff;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  /* background: #fff; */
+  /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3); */
   padding: 5px;
-  margin-top: 3.5rem;
+  margin-bottom: 2px;
 `;
 const Image = styled.img`
   height: 100%;
