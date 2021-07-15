@@ -28,7 +28,7 @@ const UserItem = ({ name, img }) => {
         src="https://www.eguardtech.com/wp-content/uploads/2018/08/Network-Profile.png"
         alt="userImage"
       />
-      <h2>{name}</h2>
+      <p>{name}</p>
     </ItemWrapper>
   );
 };

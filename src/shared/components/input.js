@@ -84,7 +84,6 @@ const Input = (props) => {
         isValid={inputState.isValid}
         onBlur={touchHandler}
         isTouched={inputState.isTouched}
-        placeholder={props.placeholder}
       />
     ) : (
       <TextArea

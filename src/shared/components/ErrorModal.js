@@ -47,6 +47,10 @@ const ModalWrapper = styled.div`
   z-index: 10000;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 2fr;
+  @media screen and (max-width: 768px) {
+    width: 300px;
+    height: 200px;
+  }
 `;
 
 const ModalTitle = styled.div`
@@ -71,6 +75,10 @@ const CloseModalButton = styled(MdClose)`
   height: 32px;
   padding: 0;
   z-index: 10;
+  @media screen and (max-width: 768px) {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 const ModalContent = styled.div`

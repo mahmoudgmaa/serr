@@ -4,7 +4,6 @@ import { NavLink as Link } from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
 import logo from "../../assets/serrlogo.png";
 import { FaBars } from "react-icons/fa";
-import { Button } from "react-scroll";
 
 const Nav = ({ toggle }) => {
   const auth = useContext(AuthContext);
@@ -36,7 +35,7 @@ const Nav = ({ toggle }) => {
           </button>
         </nav>
       ) : (
-        <nav className="navbar" className={"navbar"}>
+        <nav className="navbar">
           <Link className="link" to="/">
             انشاء حساب{" "}
           </Link>
