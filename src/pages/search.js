@@ -12,7 +12,7 @@ import {
   SearchScreenSection,
   SearchWrapper,
 } from "./searchElments";
-import ErrorModal from "../shared/components/ErrorModal"
+import ErrorModal from "../shared/components/ErrorModal";
 
 const Search = () => {
   const [isSearched, setIsSearched] = useState(false);
@@ -25,7 +25,7 @@ const Search = () => {
     setIsSearched(true);
     try {
       const data = await sendRequset(
-        `https://serr-secret.herokuapp.com/api/user/search?name=${searchValue}`,
+        `http://localhost:5000/api/user/search?name=${searchValue}`,
         "GET"
       );
       if (data.result.length === 0) {
@@ -35,6 +35,7 @@ const Search = () => {
       }
       setNoUserFound(false);
       setSearchedUsers(data.result);
+      console.log(data.result);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +72,14 @@ const Search = () => {
         </TopPartContainer>
         <ItemsContainer searched={isSearched}>
           {searchedUsers.slice(0, 6).map((user, index) => {
-            return <UserItem name={user.name} img={user.img} key={index} />;
+            return (
+              <UserItem
+                name={user.name}
+                img={user.img}
+                id={user._id}
+                key={index}
+              />
+            );
           })}
         </ItemsContainer>
       </SearchScreenSection>

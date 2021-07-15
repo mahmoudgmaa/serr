@@ -60,7 +60,7 @@ const App = () => {
         <Route path="/search" exact>
           <Search />
         </Route>
-        <Route path="/u/:uid" exact>
+        <Route path="/u/:name/:uid" exact>
           <UserLanding />
         </Route>
         <Route path="/myMessages" exact>

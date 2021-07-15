@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const ItemWrapper = styled.div`
   width: 100%;
@@ -9,10 +10,9 @@ const ItemWrapper = styled.div`
   border-width: 1px 0 0 0;
   border-style: solid;
   display: flex;
-  /* background: #fff; */
-  /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3); */
   padding: 5px;
   margin-bottom: 2px;
+  cursor: pointer;
 `;
 const Image = styled.img`
   height: 100%;
@@ -21,9 +21,13 @@ const Image = styled.img`
   margin-left: 1rem;
 `;
 
-const UserItem = ({ name, img }) => {
+const UserItem = ({ name, id }) => {
+  const history = useHistory();
+  const onItemCLickHandler = (name, id) => {
+    history.push("/u/" + name + "/" + id);
+  };
   return (
-    <ItemWrapper>
+    <ItemWrapper onClick={() => onItemCLickHandler(name, id)}>
       <Image
         src="https://www.eguardtech.com/wp-content/uploads/2018/08/Network-Profile.png"
         alt="userImage"
