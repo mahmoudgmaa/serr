@@ -24,7 +24,7 @@ header .navbar .link:hover {
   transition: all 0.2s linear;
 }
 #menu-bar {
-  font-size: 2rem;
+  font-size: 3rem;
   cursor: pointer;
   color: #fff;
   border: 0.1 solid #666;

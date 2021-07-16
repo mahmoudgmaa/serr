@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SearchBar from "material-ui-search-bar";
-import "./search.css";
+// import "./search.css";
 import { useHttpCleint } from "../hooks/http-hook";
 import UserItem from "../shared/components/userItem";
 import logo from "../assets/serr.png";
@@ -25,7 +25,7 @@ const Search = () => {
     setIsSearched(true);
     try {
       const data = await sendRequset(
-        `http://localhost:5000/api/user/search?name=${searchValue}`,
+        `https://serr-secret.herokuapp.com/api/user/search?name=${searchValue}`,
         "GET"
       );
       if (data.result.length === 0) {
@@ -35,9 +35,7 @@ const Search = () => {
       }
       setNoUserFound(false);
       setSearchedUsers(data.result);
-      console.log(data.result);
     } catch (error) {
-      console.log(error);
     }
   };
   return (
@@ -75,7 +73,6 @@ const Search = () => {
             return (
               <UserItem
                 name={user.name}
-                img={user.img}
                 id={user._id}
                 key={index}
               />

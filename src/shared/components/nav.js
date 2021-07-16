@@ -17,7 +17,7 @@ const Nav = ({ toggle }) => {
         <FaBars />
       </div>
       {auth.isLoggedIn ? (
-        <nav className={"navbar"}>
+        <nav className="navbar">
           <Link className="link" to="/">
             بحث
           </Link>
