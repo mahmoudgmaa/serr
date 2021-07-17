@@ -16,7 +16,9 @@ import About from "./pages/aboutus";
 import Sidebar from "./shared/components/sidebar";
 
 const App = () => {
-  const [token, setToken] = useState(false||!!window.localStorage.getItem("token")); //||window.localStorage.getItem("auth")==="true"
+  const [token, setToken] = useState(
+    false || !!window.localStorage.getItem("token")
+  ); //||window.localStorage.getItem("auth")==="true"
   const [userId, setUserId] = useState();
   const [isOpen, setIsOpen] = useState();
 
@@ -78,11 +80,11 @@ const App = () => {
   } else {
     routes = (
       <Switch>
+        <Route path="/u/:name/:uid" exact>
+          <UserLanding />
+        </Route>
         <Route path="/" exact>
           <Home />
-        </Route>
-        <Route path="/u/:uid" exact>
-          <UserLanding />
         </Route>
         <Route path="/search" exact>
           <Search />
