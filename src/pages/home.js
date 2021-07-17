@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import img from "../assets/homeimg.jpg";
 import "./home.css";
-import styled from "styled-components";
+import {Button} from "../shared/components/Button"
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_EMAIL,
@@ -17,23 +17,6 @@ import { useHttpCleint } from "../hooks/http-hook";
 import ErrorModal from "../shared/components/ErrorModal";
 import gifLoader from "../assets/gifLoader.gif";
 
-export const Button = styled.button`
-  background: ${({ disabled }) => (disabled ? "#d3d3d3" : "#e65252")};
-  color: #fff;
-  font-weight: 50;
-  font-size: 2rem;
-  border-radius: 1rem;
-  border: 1px solid ${({ disabled }) => (disabled ? "#d3d3d3" : "#e65252")};
-  transition: 0.2s ease-in-out;
-  /* margin-left: 5px; */
-  margin: 2rem;
-  padding: 6px 16px;
-  &:hover {
-    color: black;
-    background: ${({ disabled }) => (disabled ? "#d3d3d3" : "#fff")};
-    transition: 0.2s ease-in-out;
-  }
-`;
 
 const Home = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);

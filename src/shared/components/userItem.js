@@ -15,23 +15,24 @@ const ItemWrapper = styled.div`
   cursor: pointer;
 `;
 const Image = styled.img`
-  height: 100%;
-  width: 6rem;
+  height: 5rem;
+  width: 5rem;
   border-radius: 50%;
   margin-left: 1rem;
 `;
 
-const UserItem = ({ name, id }) => {
+const UserItem = ({ name, id, img }) => {
   const history = useHistory();
   const onItemCLickHandler = (name, id) => {
-    history.push("/u/" + name + "/" + id);
+    history.push({
+      pathname: "/u/" + name + "/" + id,
+      search: "?query=abc",
+      state: { img: img },
+    });
   };
   return (
     <ItemWrapper onClick={() => onItemCLickHandler(name, id)}>
-      <Image
-        src="https://www.eguardtech.com/wp-content/uploads/2018/08/Network-Profile.png"
-        alt="userImage"
-      />
+      <Image src={img} alt="userImage" />
       <p>{name}</p>
     </ItemWrapper>
   );

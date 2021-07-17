@@ -35,8 +35,7 @@ const Search = () => {
       }
       setNoUserFound(false);
       setSearchedUsers(data.result);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   return (
     <>
@@ -75,6 +74,7 @@ const Search = () => {
                 name={user.name}
                 id={user._id}
                 key={index}
+                img={user.img}
               />
             );
           })}

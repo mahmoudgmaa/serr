@@ -8,7 +8,7 @@ const sharedStyles = css`
   border-radius: 5px;
   border: 1px solid
     ${({ isValid, isTouched }) => (!isValid && isTouched ? `#e65252` : `#eee`)};
-  margin: 1rem;
+  margin: 0.5rem;
   padding: 20px;
   box-sizing: border-box;
 `;
@@ -25,7 +25,7 @@ const StyledInput = styled.input`
 const TextArea = styled.textarea`
   background-color: #eee;
   width: 100%;
-  min-height: 100px;
+  min-height: 150px;
   resize: none;
   ${sharedStyles};
 `;
@@ -94,6 +94,7 @@ const Input = (props) => {
         onBlur={touchHandler}
         isTouched={inputState.isTouched}
         isValid={inputState.isValid}
+        placeholder={props.placeholder}
       />
     );
 
