@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const LandingSection = styled.section`
   width: 100vw;
-  height: 100vh;
-  padding-top: 10rem;
+  /* height: 100vh; */
+  padding-top: 20rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -36,17 +36,21 @@ export const Form = styled.form`
   align-items: center;
 `;
 export const PublicMessagesWrapper=styled.div`
-background: #fff;
-overflow-y: scroll;
-/* height: 30rem; */
 max-height: 30rem;
 width: 50%;
+align-items: center;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
 `
-export const SingleMessageWrapper=styled.div`
-width: 100%;
-overflow-y: scroll;
-max-height: 30px;
-margin: 5px;
-border-radius: 10px;
-display:flex;
-`
+export const SingleMessageWrapper = styled.div`
+  width: 100%;
+  margin: 15px;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  padding: 16px 16px;
+  display: flex;
+  background: #e65252;
+  font-size: 1.4rem;
+  color: #fff;
+`;

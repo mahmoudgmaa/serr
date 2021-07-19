@@ -8,6 +8,7 @@ import {
   Form,
   FormWrapper,
   PublicMessagesWrapper,
+  SingleMessageWrapper,
 } from "./styles/LandingPageElments";
 import Input from "../shared/components/input";
 import { useForm } from "../hooks/form-hook";
@@ -33,6 +34,7 @@ const UserLanding = () => {
   const [userImg, setUserImg] = useState();
   const [messageBody, setMessageBody] = useState("");
   const [isSent, setIsSent] = useState(false);
+  const [publicMessages, setPublicMessages] = useState([]);
   const { isError, error, errorHandler, sendRequset, setIsError } =
     useHttpCleint();
 
@@ -51,6 +53,7 @@ const UserLanding = () => {
         `https://serr-secret.herokuapp.com/api/message/publicMessages?fbid=${id}`,
         "GET"
       );
+      setPublicMessages(data.result);
     } catch (error) {
       console.log(error);
     }
@@ -149,7 +152,16 @@ const UserLanding = () => {
           </Form>
         </FormWrapper>
         <hr style={{ width: "70%", marginTop: "1rem" }} />
-        <PublicMessagesWrapper></PublicMessagesWrapper>
+        <h2>الرسائل المعلنة</h2>
+        <PublicMessagesWrapper>
+          {publicMessages.map((m, index) => {
+            return (
+              <SingleMessageWrapper key={index}>
+                <p style={{ wordBreak: "break-word" }}>{m.messageBody}</p>
+              </SingleMessageWrapper>
+            );
+          })}
+        </PublicMessagesWrapper>
       </LandingSection>
     </>
   );
