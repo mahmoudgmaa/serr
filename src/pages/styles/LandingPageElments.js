@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const LandingSection = styled.section`
   width: 100vw;
-  height: 80vh;
-  padding-top: 28rem;
+  height: 100vh;
+  padding-top: 10rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   @media screen and (max-width: 768px) {
@@ -38,6 +38,15 @@ export const Form = styled.form`
 export const PublicMessagesWrapper=styled.div`
 background: #fff;
 overflow-y: scroll;
-/* height: 200rem; */
-width: 70%;
+/* height: 30rem; */
+max-height: 30rem;
+width: 50%;
+`
+export const SingleMessageWrapper=styled.div`
+width: 100%;
+overflow-y: scroll;
+max-height: 30px;
+margin: 5px;
+border-radius: 10px;
+display:flex;
 `

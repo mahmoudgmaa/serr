@@ -24,11 +24,14 @@ const Image = styled.img`
 const UserItem = ({ name, id, img }) => {
   const history = useHistory();
   const onItemCLickHandler = (name, id) => {
-    history.push({
-      pathname: "/u/" + name + "/" + id,
-      search: "?query=abc",
-      state: { img: img },
-    });
+    history.push(
+      "/u/" + name + "/" + id
+      // {
+      //   pathname: "/u/" + name + "/" + id,
+      //   search: "?query=abc",
+      //   state: { img: img },
+      // }
+    );
   };
   return (
     <ItemWrapper onClick={() => onItemCLickHandler(name, id)}>

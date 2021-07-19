@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import img from "../assets/homeimg.jpg";
-import "./home.css";
+import "./styles/home.css";
 import {Button} from "../shared/components/Button"
 import {
   VALIDATOR_MINLENGTH,
@@ -140,7 +140,6 @@ const Home = () => {
                 id="name"
                 type="text"
                 validators={[VALIDATOR_REQUIRE()]}
-                errorText="please enter a valid name"
                 onInput={inputHandler}
                 placeholder="اسم المستخدم"
                 errorText="اسم المستخدم لا يجب ان يكون فارغا"

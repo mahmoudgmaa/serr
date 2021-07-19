@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SearchBar from "material-ui-search-bar";
-// import "./search.css";
+import "./styles/search.css";
 import { useHttpCleint } from "../hooks/http-hook";
 import UserItem from "../shared/components/userItem";
 import logo from "../assets/serr.png";
@@ -11,7 +11,7 @@ import {
   NoUserText,
   SearchScreenSection,
   SearchWrapper,
-} from "./searchElments";
+} from "./styles/searchElments";
 import ErrorModal from "../shared/components/ErrorModal";
 
 const Search = () => {

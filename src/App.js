@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback,useEffect } from "react";
 import {
   HashRouter as Router,
   Route,
@@ -16,15 +16,17 @@ import About from "./pages/aboutus";
 import Sidebar from "./shared/components/sidebar";
 
 const App = () => {
-  const [token, setToken] = useState(
-    false || !!window.localStorage.getItem("token")
-  ); //||window.localStorage.getItem("auth")==="true"
-  const [userId, setUserId] = useState();
+  const [token, setToken] = useState(window.localStorage.getItem("token"));
+    // false || !!window.localStorage.getItem("token")
+  // );
+  const [userId, setUserId] = useState(window.localStorage.getItem("uid"));
   const [isOpen, setIsOpen] = useState();
 
   const toggle = () => {
     setIsOpen(!isOpen);
   };
+
+  
 
   const logIn = useCallback((uid, token) => {
     setToken(token);
@@ -34,26 +36,11 @@ const App = () => {
   }, []);
 
   const logOut = useCallback(() => {
-    //   firebase
-    //     .auth()
-    //     .signOut()
-    //     .then(() => {
-    //       console.log("signed out successfully");
     setToken(null);
     setUserId(null);
-    //     });
+    window.localStorage.removeItem("token") 
+    window.localStorage.removeItem("uid");
   }, []);
-
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged((userCredintials) => {
-  //     console.log(userCredintials);
-  //     if (!userCredintials) {
-  //       setIsLoggedIn(false);
-  //     } else {
-  //       setIsLoggedIn(true);
-  //     }
-  //   });
-  // }, []);
 
   let routes;
   if (token) {

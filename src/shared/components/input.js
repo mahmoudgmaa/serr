@@ -90,7 +90,7 @@ const Input = (props) => {
         id={props.id}
         rows={props.rows || 3}
         onChange={changeHandler}
-        value={inputState.value}
+        value={props.value}
         onBlur={touchHandler}
         isTouched={inputState.isTouched}
         isValid={inputState.isValid}

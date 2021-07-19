@@ -10,9 +10,21 @@ import {
   SidebarMenu,
 } from "./SidebarElments";
 import { AuthContext } from "../context/auth-context";
+import { useHistory } from "react-router-dom";
 
 const Sidebar = ({ toggle, isOpen }) => {
   const auth = useContext(AuthContext);
+  const history = useHistory();
+  const onButtonClickHandler = (e) => {
+    e.preventDefault();
+    toggle();
+    if (auth.isLoggedIn) {
+      auth.logOut();
+      history.push("/");
+    } else {
+      history.push("/");
+    }
+  };
 
   return (
     <SideBarContainer isOpen={isOpen} onClick={toggle}>
@@ -28,9 +40,6 @@ const Sidebar = ({ toggle, isOpen }) => {
               </SidebarLink>
               <SidebarLink to="/myMessages" onClick={toggle}>
                 رسائلي
-              </SidebarLink>
-              <SidebarLink to="places/new" onClick={toggle}>
-                حسابي
               </SidebarLink>
               <SidebarLink to="/profile" onClick={toggle}>
                 حسابي
@@ -54,8 +63,8 @@ const Sidebar = ({ toggle, isOpen }) => {
           )}
         </SidebarMenu>
         <SideBtnWrap>
-          <SidebarRoute to="/" onClick={toggle}>
-            {auth.isLoggedIn ? "بحث" : "دخول"}
+          <SidebarRoute to="/" onClick={onButtonClickHandler}>
+            {auth.isLoggedIn ? "تسجيل الخروج" : "دخول"}
           </SidebarRoute>
         </SideBtnWrap>
       </SidebarWrapper>

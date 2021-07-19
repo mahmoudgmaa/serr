@@ -56,10 +56,11 @@ const ModalWrapper = styled.div`
 const ModalTitle = styled.div`
   width: 100%;
   color: white;
-  justify-content: start;
-  align-items: left;
+  display: flex;
+  flex-direction: row;
+  align-items: right;
   background: #e65252;
-  padding: 16px 32px;
+  padding: 16px 16px;
 
   h3 {
     color: white;
@@ -70,7 +71,7 @@ const CloseModalButton = styled(MdClose)`
   cursor: pointer;
   position: absolute;
   top: 20px;
-  right: 20px;
+  left: 20px;
   width: 32px;
   height: 32px;
   padding: 0;
@@ -86,6 +87,9 @@ const ModalContent = styled.div`
   height: 100;
   background: white;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;
 
 const ModalCancel = ({
