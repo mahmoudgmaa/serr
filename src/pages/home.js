@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import img from "../assets/homeimg.jpg";
 import "./styles/home.css";
-import {Button} from "../shared/components/Button"
+import { Button } from "../shared/components/Button";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_EMAIL,
@@ -16,7 +16,7 @@ import { useForm } from "../hooks/form-hook";
 import { useHttpCleint } from "../hooks/http-hook";
 import ErrorModal from "../shared/components/ErrorModal";
 import gifLoader from "../assets/gifLoader.gif";
-
+import { GoogleLogin } from "react-google-login";
 
 const Home = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -60,15 +60,21 @@ const Home = () => {
     }
     setIsLoginMode((prev) => !prev);
   };
-
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged((userCredintials) => {
-  //     console.log(userCredintials);
-  //   });
-  // }, []);
-
-  const googleIconClickHandler = (e) => {
-    e.preventDefault();
+  const successResponseGoogle = async (response) => {
+    try {
+      const data = await sendRequset(
+        "http://localhost:5000/api/user/googleSign",
+        "POST",
+        JSON.stringify({
+          tokenId: response.tokenId,
+        }),
+        { "Content-Type": "application/json" }
+      );
+      console.log(data);
+    } catch (error) {}
+  };
+  const failureResponseGoogle = (response) => {
+    console.log(response);
   };
 
   const facebookIconClickHandler = (e) => {
@@ -192,11 +198,19 @@ const Home = () => {
                 className="loginIcon"
                 onClick={facebookIconClickHandler}
               />
-              <img
+              <GoogleLogin
+                clientId="951458547942-k3hcfssnc6r7tue6ufvc4acptbojjtsi.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={successResponseGoogle}
+                onFailure={failureResponseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
+              ,
+              {/* <img
                 src={googleIcon}
                 className="loginIcon"
                 onClick={googleIconClickHandler}
-              />
+              /> */}
             </div>
           </form>
         </div>

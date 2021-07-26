@@ -8,7 +8,6 @@ import {
   Form,
   FormWrapper,
   PublicMessagesWrapper,
-  SingleMessageWrapper,
 } from "./styles/LandingPageElments";
 import Input from "../shared/components/input";
 import { useForm } from "../hooks/form-hook";
@@ -16,6 +15,7 @@ import { Button } from "../shared/components/Button";
 import ErrorModal from "../shared/components/ErrorModal";
 import { AuthContext } from "../shared/context/auth-context";
 import { VALIDATOR_MINLENGTH, VALIDATOR_MAXLENGTH } from "../utils/validators";
+import Message from "../shared/components/message/Message";
 
 const UserLanding = () => {
   const auth = useContext(AuthContext);
@@ -156,9 +156,16 @@ const UserLanding = () => {
         <PublicMessagesWrapper>
           {publicMessages.map((m, index) => {
             return (
-              <SingleMessageWrapper key={index}>
-                <p style={{ wordBreak: "break-word" }}>{m.messageBody}</p>
-              </SingleMessageWrapper>
+              <Message
+                isFavourite={m.isFavourite}
+                isPublic={m.isPublic}
+                id={m._id}
+                messageBody={m.messageBody}
+                date={m.date}
+                key={index}
+                mode="public"
+                comment={m.comment}
+              />
             );
           })}
         </PublicMessagesWrapper>
