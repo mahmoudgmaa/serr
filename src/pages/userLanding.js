@@ -16,6 +16,7 @@ import ErrorModal from "../shared/components/ErrorModal";
 import { AuthContext } from "../shared/context/auth-context";
 import { VALIDATOR_MINLENGTH, VALIDATOR_MAXLENGTH } from "../utils/validators";
 import Message from "../shared/components/message/Message";
+import gifLoader from "../assets/gifLoader.gif";
 
 const UserLanding = () => {
   const auth = useContext(AuthContext);
@@ -35,7 +36,7 @@ const UserLanding = () => {
   const [messageBody, setMessageBody] = useState("");
   const [isSent, setIsSent] = useState(false);
   const [publicMessages, setPublicMessages] = useState([]);
-  const { isError, error, errorHandler, sendRequset, setIsError } =
+  const { isError, error, errorHandler, sendRequset, setIsError,isLoading } =
     useHttpCleint();
 
   const fetchUserData = async () => {
@@ -152,23 +153,32 @@ const UserLanding = () => {
           </Form>
         </FormWrapper>
         <hr style={{ width: "70%", marginTop: "1rem" }} />
-        <h2>الرسائل المعلنة</h2>
-        <PublicMessagesWrapper>
-          {publicMessages.map((m, index) => {
-            return (
-              <Message
-                isFavourite={m.isFavourite}
-                isPublic={m.isPublic}
-                id={m._id}
-                messageBody={m.messageBody}
-                date={m.date}
-                key={index}
-                mode="public"
-                comment={m.comment}
-              />
-            );
-          })}
-        </PublicMessagesWrapper>
+        <div className={`loader-container ${!isLoading && "fade-out"}`}>
+          <img src={gifLoader} />
+        </div>
+        <h2 style={{ marginTop: "3rem" }}>
+          {publicMessages.length
+            ? "الرسائل المعلنة"
+            : "هذا المستخدم لا يملك رسائل معلنة"}
+        </h2>
+        {publicMessages.length ? (
+          <PublicMessagesWrapper>
+            {publicMessages.map((m, index) => {
+              return (
+                <Message
+                  isFavourite={m.isFavourite}
+                  isPublic={m.isPublic}
+                  id={m._id}
+                  messageBody={m.messageBody}
+                  date={m.date}
+                  key={index}
+                  mode="public"
+                  comment={m.comment}
+                />
+              );
+            })}
+          </PublicMessagesWrapper>
+        ) : null}
       </LandingSection>
     </>
   );
