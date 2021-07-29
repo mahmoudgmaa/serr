@@ -101,6 +101,9 @@ const App = () => {
         </header>
         <main>{routes}</main>
       </Router>
+      <footer>
+        <p>copyright &copy; 2020 by AZEM</p>
+      </footer>
     </AuthContext.Provider>
   );
 };

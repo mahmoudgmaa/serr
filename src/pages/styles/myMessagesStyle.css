@@ -1,0 +1,11 @@
+.tabpanel {
+  width: 50%;
+  text-align: center;
+}
+ @media screen and (max-width: 768px) {
+    .tabpanel{
+          width: 100%;
+
+
+    }
+  }

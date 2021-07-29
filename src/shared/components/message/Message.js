@@ -54,7 +54,7 @@ const Message = ({
     toDeleteState: false,
     loadState: false,
   });
-  const modeIsPublic = mode === "public";
+  const modeIsTotal = mode === "total";
   const { isError, error, errorHandler, sendRequset, setIsError } =
     useHttpCleint();
 
@@ -179,7 +179,7 @@ const Message = ({
         )}
         <SingleMessageWrapper>
           <MessageBody>{messageBody}</MessageBody>
-          {!modeIsPublic && (
+          {modeIsTotal && (
             <IconsWrapper>
               <SingleIconWrapper>
                 <Icon
@@ -226,7 +226,7 @@ const Message = ({
               </SingleIconWrapper>
             </IconsWrapper>
           )}
-          {toInputComment.toInput && !modeIsPublic && (
+          {toInputComment.toInput && modeIsTotal && (
             <CommentInputWrapper onSubmit={sendCommentButtonHandler}>
               <Input
                 type="text"
@@ -245,7 +245,7 @@ const Message = ({
               </CommentButton>
             </CommentInputWrapper>
           )}
-          {toDelete.toDeleteState && !modeIsPublic && (
+          {toDelete.toDeleteState && modeIsTotal && (
             <DeleteWrapper>
               <DeleteText>هل انت متأكد من مسح الرسالة؟</DeleteText>
               <CommentButton onClick={deleteMessageButtonHandler}>
@@ -258,7 +258,7 @@ const Message = ({
           )}
           <FooterWrapper>
             <Date>{date}</Date>
-            {!modeIsPublic && (
+            {modeIsTotal && (
               <Button
                 isPublic={isPublicState.isPublic}
                 onClick={onPublicButtonClick}

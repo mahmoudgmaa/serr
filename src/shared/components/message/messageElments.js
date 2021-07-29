@@ -10,12 +10,13 @@ export const SingleMessageWrapper = styled.div`
   background: #fff;
   color: #fff;
   border: 1px solid #eee;
-  z-index: 100;
+  z-index: 9;
 `;
 
 export const MessageBody = styled.p`
   color: #000;
   font-size: 1.5rem;
+  word-break: break-all;
 `;
 export const IconsWrapper = styled.div`
   display: flex;
@@ -100,6 +101,7 @@ export const CommentBody = styled.p`
   color: #000;
   font-size: 1.4rem;
   margin-bottom: 0;
+  word-break: break-all;
 `;
 
 export const CommentInputWrapper = styled.form`

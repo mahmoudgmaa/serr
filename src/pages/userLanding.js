@@ -129,6 +129,7 @@ const UserLanding = () => {
           body={`تم وصول سرك بنجاح الي ${name}`}
           buttonText={"اغلاق"}
           oncancel={errorHandler}
+          
         />
       )}
       <LandingSection>
@@ -136,7 +137,8 @@ const UserLanding = () => {
           <Img src={userImg} />
           <h3>{name}</h3>
         </ImgWrapper>
-        <FormWrapper>
+        <FormWrapper
+        >
           <Form onSubmit={onFormSubmit}>
             <Input
               value={messageBody}
