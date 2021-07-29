@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Tab,
-  Tabs,
-  makeStyles,
-  Box,
-  Typography,
-  AppBar,
-} from "@material-ui/core";
+import { Tab, Tabs, makeStyles, Box, AppBar } from "@material-ui/core";
 import {
   MyMessagesSection,
   MessagesContainer,
@@ -20,6 +13,9 @@ import { AuthContext } from "../shared/context/auth-context";
 import gifLoader from "../assets/gifLoader.gif";
 import "./styles/myMessagesStyle.css";
 import empty from "../assets/empty.svg";
+import emptyFavourite from "../assets/emptyFavourite.svg";
+import emptySend from "../assets/emptySend.svg";
+import ErrorModal from "../shared/components/ErrorModal";
 
 const useStyles = makeStyles({
   root: {
@@ -67,7 +63,7 @@ const MyMessages = () => {
   const classes = useStyles();
   const auth = useContext(AuthContext);
   const [value, setValue] = React.useState(0);
-  const { isError, error, errorHandler, sendRequset, setIsError, isLoading } =
+  const { isError, error, errorHandler, setIsError, isLoading, setIsLoading } =
     useHttpCleint();
   const [messages, setMessages] = useState([]);
   const [sentMessages, setSentMessages] = useState([]);
@@ -76,43 +72,56 @@ const MyMessages = () => {
     setValue(newValue);
   };
   useEffect(() => {
-    sendRequset(
+    setIsLoading(true);
+  }, []);
+
+  useEffect(() => {
+    fetch(
       `https://serr-secret.herokuapp.com/api/message?fbid=${
         auth.userId || window.localStorage.getItem("userId")
       }`,
-      "GET",
-      null,
       {
-        Authorization:
-          "Bear " + auth.token || window.localStorage.getItem("token"),
+        method: "GET",
+        headers: {
+          Authorization:
+            "Bear " + auth.token || window.localStorage.getItem("token"),
+        },
       }
-    )
-      .then((data) => {
-        setMessages(data.result);
-        setFavouriteMessages(data.result.filter((m) => m.isFavourite === true));
-      })
-      .catch((err) => {});
-    sendRequset(
+    ).then(async (res) => {
+      const data = await res.json();
+      setMessages(data.result);
+      setFavouriteMessages(data.result.filter((m) => m.isFavourite === true));
+      setIsLoading(false);
+    });
+    fetch(
       `https://serr-secret.herokuapp.com/api/message/sentMessages?fbid=${
         auth.userId || window.localStorage.getItem("userId")
       }`,
-      "GET",
-      null,
       {
-        Authorization:
-          "Bear " + auth.token || window.localStorage.getItem("token"),
+        method: "GET",
+        headers: {
+          Authorization:
+            "Bear " + auth.token || window.localStorage.getItem("token"),
+        },
       }
-    )
-      .then((data) => {
-        setSentMessages(data.result);
-        console.log(data.result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    ).then(async (res) => {
+      const data = await res.json();
+      setSentMessages(data.result);
+    });
+  }, [value]);
+
   return (
     <MyMessagesSection>
+      {isError && (
+        <ErrorModal
+          showModal={isError}
+          setShowModal={setIsError}
+          header={"حدث خطأ ما"}
+          body={error}
+          buttonText={"اغلاق"}
+          oncancel={errorHandler}
+        />
+      )}
       <div className={`loader-container ${!isLoading && "fade-out"}`}>
         <img src={gifLoader} />
       </div>
@@ -150,21 +159,26 @@ const MyMessages = () => {
         {messages.length === 0 && (
           <div
             style={{
-              paddingTop:"10rem",
+              paddingTop: "10rem",
               width: "100%",
               height: "100%",
               alignItems: "center",
               display: "flex",
               flexDirection: "column",
-              justifyContent:"center"
+              justifyContent: "center",
             }}
           >
             <h3>صندوق الاسرار فارغ</h3>
-            <img style={{ width: "30rem", height: "30rem" }} src={empty} />
-            <h3>
-              قم بمشاركة الرابط الخاص بك لاستقبال اسرار من
-              اصدقائك
-            </h3>
+            <img
+              style={{
+                width: "30rem",
+                height: "30rem",
+                marginTop: "5rem",
+                marginBottom: "3rem",
+              }}
+              src={empty}
+            />
+            <h3>قم بمشاركة الرابط الخاص بك لاستقبال اسرار من اصدقائك</h3>
           </div>
         )}
         <MessagesContainer>
@@ -185,26 +199,73 @@ const MyMessages = () => {
         </MessagesContainer>
       </TabPanel>
       <TabPanel value={value} index={1}>
+        {favouriteMessages.length === 0 && (
+          <div
+            style={{
+              paddingTop: "10rem",
+              width: "100%",
+              height: "100%",
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <h3>صندوق الاسرار المفضلة فارغ</h3>
+            <img
+              style={{
+                width: "30rem",
+                height: "30rem",
+                marginTop: "5rem",
+                marginBottom: "3rem",
+              }}
+              src={emptyFavourite}
+            />
+          </div>
+        )}
         <MessagesContainer>
-          {messages.map((m, index) => {
+          {favouriteMessages.map((m, index) => {
             return (
-              m.isFavourite && (
-                <Message
-                  isFavourite={m.isFavourite}
-                  isPublic={m.isPublic}
-                  id={m._id}
-                  messageBody={m.messageBody}
-                  date={m.date}
-                  key={index}
-                  mode="total"
-                  comment={m.comment}
-                />
-              )
+              <Message
+                isFavourite={m.isFavourite}
+                isPublic={m.isPublic}
+                id={m._id}
+                messageBody={m.messageBody}
+                date={m.date}
+                key={index}
+                mode="total"
+                comment={m.comment}
+              />
             );
           })}
         </MessagesContainer>
       </TabPanel>
       <TabPanel value={value} index={2}>
+        {sentMessages.length === 0 && (
+          <div
+            style={{
+              paddingTop: "10rem",
+              width: "100%",
+              height: "100%",
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <h3>صندوق الاسرار المرسلة فارغ</h3>
+            <img
+              style={{
+                width: "30rem",
+                height: "30rem",
+                marginTop: "5rem",
+                marginBottom: "3rem",
+              }}
+              src={emptySend}
+            />
+            <h3>قم بمشاركة اصدقائك بعض الاسرار</h3>
+          </div>
+        )}
         <MessagesContainer>
           {sentMessages.map((m, index) => {
             return (

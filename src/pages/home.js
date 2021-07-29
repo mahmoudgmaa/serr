@@ -63,7 +63,7 @@ const Home = () => {
   const successResponseGoogle = async (response) => {
     try {
       const data = await sendRequset(
-        "http://localhost:5000/api/user/googleSign",
+        "https://serr-secret.herokuapp.com/api/user/googleSign",
         "POST",
         JSON.stringify({
           tokenId: response.tokenId,
@@ -71,6 +71,7 @@ const Home = () => {
         { "Content-Type": "application/json" }
       );
       console.log(data);
+      auth.logIn(data.userId, data.token);
     } catch (error) {}
   };
   const failureResponseGoogle = (response) => {
@@ -204,13 +205,15 @@ const Home = () => {
                 onSuccess={successResponseGoogle}
                 onFailure={failureResponseGoogle}
                 cookiePolicy={"single_host_origin"}
+                render={(renderProps) => (
+                  <img
+                    src={googleIcon}
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                    className="loginIcon"
+                  />
+                )}
               />
-              ,
-              {/* <img
-                src={googleIcon}
-                className="loginIcon"
-                onClick={googleIconClickHandler}
-              /> */}
             </div>
           </form>
         </div>

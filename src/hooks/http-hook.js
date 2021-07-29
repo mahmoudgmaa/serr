@@ -46,5 +46,5 @@ export const useHttpCleint = () => {
       activeHttpRequest.current.forEach((ac) => ac.abort());
     };
   }, []);
-  return { isLoading, isError, error, sendRequset, errorHandler, setIsError };
+  return { isLoading, isError, error, sendRequset, errorHandler, setIsError,setIsLoading };
 };
