@@ -61,6 +61,7 @@ const Home = () => {
     setIsLoginMode((prev) => !prev);
   };
   const successResponseGoogle = async (response) => {
+    console.log(response.tokenId);
     try {
       const data = await sendRequset(
         "https://serr-secret.herokuapp.com/api/user/googleSign",

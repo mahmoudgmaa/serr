@@ -27,10 +27,14 @@ const Nav = ({ toggle }) => {
           <Link className="link" to="/profile">
             حسابي
           </Link>
-          <Link className="link" to="/about">
+          <Link className="link" to="/contactus">
             تواصل معنا
           </Link>
-          <button className="link" style={{ background: "transparent" }} onClick={auth.logOut}>
+          <button
+            className="link"
+            style={{ background: "transparent" }}
+            onClick={auth.logOut}
+          >
             تسجيل الخروج
           </button>
         </nav>
@@ -45,7 +49,7 @@ const Nav = ({ toggle }) => {
           <Link className="link" to="/search">
             بحث
           </Link>
-          <Link className="link" to="/about">
+          <Link className="link" to="/contactus">
             {" "}
             تواصل معنا
           </Link>

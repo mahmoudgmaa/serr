@@ -58,7 +58,7 @@ const App = () => {
         <Route path="/profile" exact>
           <Profile />
         </Route>
-        <Route path="/about" exact>
+        <Route path="/contactus" exact>
           <About />
         </Route>
         <Redirect to="/search" />
@@ -76,7 +76,7 @@ const App = () => {
         <Route path="/search" exact>
           <Search />
         </Route>
-        <Route path="/about" exact>
+        <Route path="/contactus" exact>
           <About />
         </Route>
         <Redirect to="/" />
