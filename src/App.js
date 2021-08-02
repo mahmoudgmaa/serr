@@ -1,4 +1,4 @@
-import React, { useState, useCallback,useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   HashRouter as Router,
   Route,
@@ -17,29 +17,42 @@ import Sidebar from "./shared/components/sidebar";
 
 const App = () => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-    // false || !!window.localStorage.getItem("token")
+  // false || !!window.localStorage.getItem("token")
   // );
   const [userId, setUserId] = useState(window.localStorage.getItem("uid"));
   const [isOpen, setIsOpen] = useState();
+  const [name, setName] = useState();
+  const [img, setImg] = useState();
+  const [email, setEmail] = useState();
 
   const toggle = () => {
     setIsOpen(!isOpen);
   };
 
-  
-
-  const logIn = useCallback((uid, token) => {
+  const logIn = useCallback((uid, token, name, email, img) => {
     setToken(token);
     setUserId(uid);
+    setName(name);
+    setImg(img);
+    setEmail(email);
     window.localStorage.setItem("token", token);
     window.localStorage.setItem("uid", uid);
+    window.localStorage.setItem("name", name);
+    window.localStorage.setItem("img", img);
+    window.localStorage.setItem("email", email);
   }, []);
 
   const logOut = useCallback(() => {
     setToken(null);
     setUserId(null);
-    window.localStorage.removeItem("token") 
+    setName(null);
+    setImg(null);
+    setEmail(null);
+    window.localStorage.removeItem("token");
     window.localStorage.removeItem("uid");
+    window.localStorage.removeItem("name");
+    window.localStorage.removeItem("img");
+    window.localStorage.removeItem("email");
   }, []);
 
   let routes;
@@ -92,6 +105,9 @@ const App = () => {
         logIn: logIn,
         logOut: logOut,
         userId: userId,
+        name: name,
+        email: email,
+        img: img,
       }}
     >
       <Router>
