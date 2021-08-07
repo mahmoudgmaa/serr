@@ -44,7 +44,7 @@ const Sidebar = ({ toggle, isOpen }) => {
               <SidebarLink to="/profile" onClick={toggle}>
                 حسابي
               </SidebarLink>
-              <SidebarLink to="/about" onClick={toggle}>
+              <SidebarLink to="/contactus" onClick={toggle}>
                 تواصل معنا
               </SidebarLink>
             </>
@@ -56,7 +56,7 @@ const Sidebar = ({ toggle, isOpen }) => {
               <SidebarLink to="/search" onClick={toggle}>
                 بحث
               </SidebarLink>
-              <SidebarLink to="/about" onClick={toggle}>
+              <SidebarLink to="/contactus" onClick={toggle}>
                 تواصل معنا
               </SidebarLink>
             </>

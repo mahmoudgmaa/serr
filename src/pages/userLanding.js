@@ -17,6 +17,7 @@ import { AuthContext } from "../shared/context/auth-context";
 import { VALIDATOR_MINLENGTH, VALIDATOR_MAXLENGTH } from "../utils/validators";
 import Message from "../shared/components/message/Message";
 import gifLoader from "../assets/gifLoader.gif";
+import notFound from "../assets/not_found.svg";
 
 const UserLanding = () => {
   const auth = useContext(AuthContext);
@@ -36,8 +37,9 @@ const UserLanding = () => {
   const [messageBody, setMessageBody] = useState("");
   const [isSent, setIsSent] = useState(false);
   const [publicMessages, setPublicMessages] = useState([]);
-  const { isError, error, errorHandler, sendRequset, setIsError,isLoading } =
+  const { isError, error, errorHandler, sendRequset, setIsError, isLoading } =
     useHttpCleint();
+  const [isExist, setIsExist] = useState(true);
 
   const fetchUserData = async () => {
     if (!location.state) {
@@ -47,7 +49,10 @@ const UserLanding = () => {
           "GET"
         );
         setUserImg(data.result.img);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+        setIsExist(false);
+      }
     }
     try {
       const data = await sendRequset(
@@ -111,76 +116,94 @@ const UserLanding = () => {
 
   return (
     <>
-      {isError && (
-        <ErrorModal
-          showModal={isError}
-          setShowModal={setIsError}
-          header={"حدث خطأ ما"}
-          body={error}
-          buttonText={"اغلاق"}
-          oncancel={errorHandler}
-        />
-      )}
-      {isSent && (
-        <ErrorModal
-          showModal={isSent}
-          setShowModal={setIsSent}
-          header={"تهانينا"}
-          body={`تم وصول سرك بنجاح الي ${name}`}
-          buttonText={"اغلاق"}
-          oncancel={errorHandler}
-          
-        />
-      )}
       <LandingSection>
-        <ImgWrapper>
-          <Img src={userImg} />
-          <h3>{name}</h3>
-        </ImgWrapper>
-        <FormWrapper
-        >
-          <Form onSubmit={onFormSubmit}>
-            <Input
-              value={messageBody}
-              element="textArea"
-              id="messageBody"
-              type="text"
-              onInput={inputHandler}
-              errorText="السر يجب الا يقل عن خمسة احرف ولا يزيد عن الف حرف"
-              placeholder="اجعل سرك معبرا عما بداخلك فيما لا يقل عن خمسة احرف :)"
-              validators={[VALIDATOR_MINLENGTH(5), VALIDATOR_MAXLENGTH(1000)]}
-            />
-
-            <Button disabled={!formState.isValid}>ارسال</Button>
-          </Form>
-        </FormWrapper>
-        <hr style={{ width: "70%", marginTop: "1rem" }} />
-        <div className={`loader-container ${!isLoading && "fade-out"}`}>
-          <img src={gifLoader} />
-        </div>
-        <h2 style={{ marginTop: "3rem" }}>
-          {publicMessages.length
-            ? "الرسائل المعلنة"
-            : "هذا المستخدم لا يملك رسائل معلنة"}
-        </h2>
-        {publicMessages.length ? (
-          <PublicMessagesWrapper>
-            {publicMessages.map((m, index) => {
-              return (
-                <Message
-                  isFavourite={m.isFavourite}
-                  isPublic={m.isPublic}
-                  id={m._id}
-                  messageBody={m.messageBody}
-                  date={m.date}
-                  key={index}
-                  mode="public"
-                  comment={m.comment}
+        {isExist ? (
+          <>
+            {isError && (
+              <ErrorModal
+                showModal={isError}
+                setShowModal={setIsError}
+                header={"حدث خطأ ما"}
+                body={error}
+                buttonText={"اغلاق"}
+                oncancel={errorHandler}
+              />
+            )}
+            {isSent && (
+              <ErrorModal
+                showModal={isSent}
+                setShowModal={setIsSent}
+                header={"تهانينا"}
+                body={`تم وصول سرك بنجاح الي ${name}`}
+                buttonText={"اغلاق"}
+                oncancel={errorHandler}
+              />
+            )}
+            <ImgWrapper>
+              <Img src={userImg} />
+              <h3>{name}</h3>
+            </ImgWrapper>
+            <FormWrapper>
+              <Form onSubmit={onFormSubmit}>
+                <Input
+                  value={messageBody}
+                  element="textArea"
+                  id="messageBody"
+                  type="text"
+                  onInput={inputHandler}
+                  errorText="السر يجب الا يقل عن خمسة احرف ولا يزيد عن الف حرف"
+                  placeholder="اجعل سرك معبرا عما بداخلك فيما لا يقل عن خمسة احرف :)"
+                  validators={[
+                    VALIDATOR_MINLENGTH(5),
+                    VALIDATOR_MAXLENGTH(1000),
+                  ]}
                 />
-              );
-            })}
-          </PublicMessagesWrapper>
-        ) : null}
+
+                <Button disabled={!formState.isValid}>ارسال</Button>
+              </Form>
+            </FormWrapper>
+            <hr style={{ width: "70%", marginTop: "1rem" }} />
+            <div className={`loader-container ${!isLoading && "fade-out"}`}>
+              <img src={gifLoader} />
+            </div>
+            <h2 style={{ marginTop: "3rem" }}>
+              {publicMessages.length
+                ? "الرسائل المعلنة"
+                : "هذا المستخدم لا يملك رسائل معلنة"}
+            </h2>
+            {publicMessages.length ? (
+              <PublicMessagesWrapper>
+                {publicMessages.map((m, index) => {
+                  return (
+                    <Message
+                      isFavourite={m.isFavourite}
+                      isPublic={m.isPublic}
+                      id={m._id}
+                      messageBody={m.messageBody}
+                      date={m.date}
+                      key={index}
+                      mode="public"
+                      comment={m.comment}
+                    />
+                  );
+                })}
+              </PublicMessagesWrapper>
+            ) : null}
+          </>
+        ) : (
+          <>
+            <img
+              src={notFound}
+              style={{
+                width: "30rem",
+                height: "30rem",
+                marginTop: "5rem",
+                marginBottom: "3rem",
+              }}
+            />
+            <h2>لا يمكن ايجاد هذا المستخدم</h2>
+          </>
+        )}
       </LandingSection>
     </>
   );

@@ -68,6 +68,11 @@ const MyMessages = () => {
   const [messages, setMessages] = useState([]);
   const [sentMessages, setSentMessages] = useState([]);
   const [favouriteMessages, setFavouriteMessages] = useState([]);
+
+  const link =
+    "serr.netlify.app/#/u/" + window.localStorage.name + "/" + auth.userId ||
+    window.localStorage.getItem("userId");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -159,7 +164,7 @@ const MyMessages = () => {
         {messages.length === 0 && (
           <div
             style={{
-              paddingTop: "10rem",
+              paddingTop: "5rem",
               width: "100%",
               height: "100%",
               alignItems: "center",
@@ -178,7 +183,16 @@ const MyMessages = () => {
               }}
               src={empty}
             />
-            <h3>قم بمشاركة الرابط الخاص بك لاستقبال اسرار من اصدقائك</h3>
+            <h3> قم بمشاركة الرابط الخاص بك لاستقبال اسرار من اصدقائك </h3>
+            <h4
+              style={{
+                color: "#e65252",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
+            >
+              {link}
+            </h4>
           </div>
         )}
         <MessagesContainer>
@@ -202,7 +216,7 @@ const MyMessages = () => {
         {favouriteMessages.length === 0 && (
           <div
             style={{
-              paddingTop: "10rem",
+              paddingTop: "5rem",
               width: "100%",
               height: "100%",
               alignItems: "center",
@@ -244,7 +258,7 @@ const MyMessages = () => {
         {sentMessages.length === 0 && (
           <div
             style={{
-              paddingTop: "10rem",
+              paddingTop: "5rem",
               width: "100%",
               height: "100%",
               alignItems: "center",
