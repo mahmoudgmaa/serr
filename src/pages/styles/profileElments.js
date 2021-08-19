@@ -66,11 +66,10 @@ export const ButtonsWrapper = styled.div`
   margin-top: 2rem;
   align-items: center;
   @media screen and (max-width: 850px) {
-    flex-direction: column;
+    flex-direction: row;
     justify-content: start;
-    align-items: center;    
-    width: 80%;
-
+    align-items: center;
+    width: 150%;
   }
 `;
 
@@ -84,12 +83,8 @@ export const UpdateButton = styled.button`
   &:hover {
     background: ${({ isValid }) => (!isValid ? "#d3d3d3" : "#fff")};
     color: ${({ isValid }) => (!isValid ? "#000" : "#e65252")};
-    border: ${({isValid})=>(isValid&&"1px solid #eee")};
-    cursor: ${({isValid})=>(isValid?"pointer":"default")} ;
-  }
-  @media screen and (max-width: 850px) {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
+    border: ${({ isValid }) => isValid && "1px solid #eee"};
+    cursor: ${({ isValid }) => (isValid ? "pointer" : "default")};
   }
 `;
 
@@ -97,10 +92,34 @@ export const ForgetButton = styled.button`
   padding: 8px 16px;
   border-radius: 15px;
   font-size: 1.3rem;
-  border:none;
-   &:hover {
+  border: none;
+  &:hover {
     background: #fff;
     color: #e65252;
-    border:1px solid #eee;
+    border: 1px solid #eee;
+  }
+`;
+export const DeactiveButton = styled.button`
+  padding: 8px 16px;
+  border-radius: 15px;
+  font-size: 1.3rem;
+  border: none;
+  margin-top: 1rem;
+  background: #000;
+  color: #fff;
+  &:hover {
+    background: #fff;
+    color: #e65252;
+    border: 1px solid #eee;
+  }
+`;
+export const LinkWrapper = styled.div`
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  @media screen and (max-width: 850px) {
+    width: 150%;
   }
 `;

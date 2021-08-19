@@ -72,7 +72,7 @@ const Home = () => {
         { "Content-Type": "application/json" }
       );
       console.log(data);
-      auth.logIn(data.userId, data.token, data.name, data.email, data.img);
+      auth.logIn(data.userId, data.token, data.name, data.email, data.img,data.username);
     } catch (error) {}
   };
   const failureResponseGoogle = (response) => {
@@ -96,7 +96,14 @@ const Home = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        auth.logIn(data.userId, data.token, data.name, data.email, data.img);
+        auth.logIn(
+          data.userId,
+          data.token,
+          data.name,
+          data.email,
+          data.img,
+          data.username
+        );
       } catch (error) {}
     } else {
       try {
@@ -112,7 +119,14 @@ const Home = () => {
             "Content-Type": "application/json",
           }
         );
-        auth.logIn(data.userId, data.token, data.name, data.email, data.img);
+        auth.logIn(
+          data.userId,
+          data.token,
+          data.name,
+          data.email,
+          data.img,
+          data.username
+        );
       } catch (error) {
         console.log(error.message);
       }

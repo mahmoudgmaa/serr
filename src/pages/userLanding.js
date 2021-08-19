@@ -141,7 +141,7 @@ const UserLanding = () => {
             )}
             <ImgWrapper>
               <Img src={userImg} />
-              <h3>{name}</h3>
+              <h2>{name}</h2>
             </ImgWrapper>
             <FormWrapper>
               <Form onSubmit={onFormSubmit}>

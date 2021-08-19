@@ -19,8 +19,8 @@ export const ImgWrapper = styled.div`
   align-items: center;
 `;
 export const Img = styled.img`
-  width: 10rem;
-  height: 10rem;
+  width: 12rem;
+  height: 12rem;
   margin-bottom: 5px;
 `;
 export const FormWrapper = styled.div`

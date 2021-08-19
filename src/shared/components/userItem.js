@@ -15,28 +15,45 @@ const ItemWrapper = styled.div`
   cursor: pointer;
 `;
 const Image = styled.img`
-  height: 5rem;
-  width: 5rem;
+  height: 6rem;
+  width: 6rem;
   border-radius: 50%;
   margin-left: 1rem;
 `;
 
-const UserItem = ({ name, id, img }) => {
+const BodyWrapper=styled.div`
+display: flex;
+justify-content:center;
+flex-direction: column;
+align-items: flex-start;
+`
+const Name = styled.p`
+color: black;
+font-weight: bold;
+`;
+const Username=styled.p`
+font-size: 1.2rem;
+`
+
+const UserItem = ({ name,username, id, img }) => {
   const history = useHistory();
   const onItemCLickHandler = (name, id) => {
     history.push(
-      "/u/" + name + "/" + id
-      // {
-      //   pathname: "/u/" + name + "/" + id,
-      //   search: "?query=abc",
-      //   state: { img: img },
-      // }
+      // "/u/" + name + "/" + id
+      {
+        pathname: "/u/" + name + "/" + id,
+        search: "?query=abc",
+        state: { img: img },
+      }
     );
   };
   return (
     <ItemWrapper onClick={() => onItemCLickHandler(name, id)}>
       <Image src={img} alt="userImage" />
-      <p>{name}</p>
+      <BodyWrapper>
+        <Name>{name}</Name>
+        <Username>{username}</Username>
+      </BodyWrapper>
     </ItemWrapper>
   );
 };

@@ -28,6 +28,9 @@ import shareIcon from "../../../assets/share.png";
 import { useHttpCleint } from "../../../hooks/http-hook";
 import { AuthContext } from "../../context/auth-context";
 import loader from "../../../assets/singleGifLoader.gif";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const Message = ({
   id,
@@ -169,6 +172,16 @@ const Message = ({
     });
   };
 
+  const onShareIconClickHandler=(e)=>{
+     e.preventDefault();
+     navigator.clipboard.writeText(
+       ":باستقبال سر محتواه "+window.localStorage.getItem("name")+" قام"+"\n"+
+       messageBody +
+         "\nhttps://serr.netlify.app/ يمكنك الان مشاركة اصدقائك سر ما بدون الكشف عن هويتك قم بزيارة\n https://play.google.com/store/apps/details?id=com.azem.sserr او قم بتنزيل تطبيقنا للاندرويد من خلال"
+     );
+     toast("copied to clipboard");
+  }
+
   return (
     <>
       <CommentAndMessageWrapper>
@@ -221,7 +234,7 @@ const Message = ({
                 <IconTag>رد</IconTag>
               </SingleIconWrapper>
               <SingleIconWrapper>
-                <Icon src={shareIcon} />
+                <Icon src={shareIcon} onClick={onShareIconClickHandler}/>
                 <IconTag>مشاركة</IconTag>
               </SingleIconWrapper>
             </IconsWrapper>

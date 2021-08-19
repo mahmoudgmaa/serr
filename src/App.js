@@ -22,6 +22,7 @@ const App = () => {
   const [userId, setUserId] = useState(window.localStorage.getItem("uid"));
   const [isOpen, setIsOpen] = useState();
   const [name, setName] = useState();
+  const [username, setUsername] = useState();
   const [img, setImg] = useState();
   const [email, setEmail] = useState();
 
@@ -29,15 +30,17 @@ const App = () => {
     setIsOpen(!isOpen);
   };
 
-  const logIn = useCallback((uid, token, name, email, img) => {
+  const logIn = useCallback((uid, token, name, email, img, username) => {
     setToken(token);
     setUserId(uid);
     setName(name);
     setImg(img);
     setEmail(email);
+    setUsername(username);
     window.localStorage.setItem("token", token);
     window.localStorage.setItem("uid", uid);
     window.localStorage.setItem("name", name);
+    window.localStorage.setItem("username", username);
     window.localStorage.setItem("img", img);
     window.localStorage.setItem("email", email);
   }, []);
@@ -48,11 +51,13 @@ const App = () => {
     setName(null);
     setImg(null);
     setEmail(null);
+    setUsername(null);
     window.localStorage.removeItem("token");
     window.localStorage.removeItem("uid");
     window.localStorage.removeItem("name");
     window.localStorage.removeItem("img");
     window.localStorage.removeItem("email");
+    window.localStorage.removeItem("username");
   }, []);
 
   let routes;
@@ -108,6 +113,7 @@ const App = () => {
         name: name,
         email: email,
         img: img,
+        username:username
       }}
     >
       <Router>

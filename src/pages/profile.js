@@ -8,6 +8,8 @@ import {
   ButtonsWrapper,
   UpdateButton,
   ForgetButton,
+  DeactiveButton,
+  LinkWrapper
 } from "./styles/profileElments";
 import { AuthContext } from "../shared/context/auth-context";
 import { useHistory } from "react-router-dom";
@@ -44,8 +46,8 @@ const Profile = () => {
         name: auth.name || window.localStorage.getItem("name"),
         email: auth.email || window.localStorage.getItem("email"),
         img: auth.img || window.localStorage.getItem("img"),
+        username: auth.username || window.localStorage.getItem("username"),
       });
-      console.log(window.localStorage.getItem("name"));
     } else {
       //if cache removed
       history.push("/");
@@ -112,7 +114,7 @@ const Profile = () => {
   const onLinkClickHandler = (e) => {
     e.preventDefault();
     navigator.clipboard.writeText(link);
-    toast("copied to clipb");
+    toast("copied to clipboard");
   };
 
   return (
@@ -142,23 +144,33 @@ const Profile = () => {
         <UploadImg type="button" onClick={pickImgHandler}>
           تغيير الصورة الشخصية
         </UploadImg>
-        <h5>الرابط الخاص بك(اضغط للنسخ)</h5>
-        <h5
-          onClick={onLinkClickHandler}
-          style={{
-            marginTop:"0.5rem",
-            color: "#e65252",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
-          {link}
-        </h5>
+        <LinkWrapper>
+          <h5>الرابط الخاص بك(اضغط للنسخ)</h5>
+          <h5
+            onClick={onLinkClickHandler}
+            style={{
+              marginTop: "0.5rem",
+              color: "#e65252",
+              fontWeight: "bold",
+              cursor: "pointer",
+              wordBreak: "break-all",
+            }}
+          >
+            {link}
+          </h5>
+        </LinkWrapper>
+        <Input
+          type="text"
+          placeholder="الاسم بالكامل"
+          onChange={nameInputChangeHandler}
+          value={userData.name}
+        />
         <Input
           type="text"
           placeholder="اسم المستخدم"
-          onChange={nameInputChangeHandler}
-          value={userData.name}
+          // onChange={nameInputChangeHandler}
+          value={userData.username}
+          disabled
         />
         <Input
           type="text"
@@ -170,8 +182,9 @@ const Profile = () => {
           <UpdateButton isValid={isValid} type="submit">
             تحديث
           </UpdateButton>
-          <ForgetButton>نسيت كلمة المرور</ForgetButton>
+          <ForgetButton>تغيير كلمة المرور</ForgetButton>
         </ButtonsWrapper>
+        <DeactiveButton>الغاء الحساب</DeactiveButton>
       </ProfileContent>
     </ProfileSection>
   );

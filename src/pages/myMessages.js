@@ -16,6 +16,9 @@ import empty from "../assets/empty.svg";
 import emptyFavourite from "../assets/emptyFavourite.svg";
 import emptySend from "../assets/emptySend.svg";
 import ErrorModal from "../shared/components/ErrorModal";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const useStyles = makeStyles({
   root: {
@@ -115,6 +118,12 @@ const MyMessages = () => {
     });
   }, [value]);
 
+  const onLinkClickHandler = (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(link);
+    toast("copied to clipboard");
+  };
+
   return (
     <MyMessagesSection>
       {isError && (
@@ -183,16 +192,18 @@ const MyMessages = () => {
               }}
               src={empty}
             />
-            <h3> قم بمشاركة الرابط الخاص بك لاستقبال اسرار من اصدقائك </h3>
-            <h4
+            <h3> قم بمشاركة الرابط الخاص بك لاستقبال اسرار من اصدقائك (اضغط للنسخ)</h3>
+            <h5
+              onClick={onLinkClickHandler}
               style={{
                 color: "#e65252",
                 fontWeight: "bold",
                 cursor: "pointer",
+                marginTop:"0.5rem"
               }}
             >
               {link}
-            </h4>
+            </h5>
           </div>
         )}
         <MessagesContainer>
