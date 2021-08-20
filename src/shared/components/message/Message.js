@@ -175,9 +175,12 @@ const Message = ({
   const onShareIconClickHandler=(e)=>{
      e.preventDefault();
      navigator.clipboard.writeText(
-       ":باستقبال سر محتواه "+window.localStorage.getItem("name")+" قام"+"\n"+
-       messageBody +
-         "\nhttps://serr.netlify.app/ يمكنك الان مشاركة اصدقائك سر ما بدون الكشف عن هويتك قم بزيارة\n https://play.google.com/store/apps/details?id=com.azem.sserr او قم بتنزيل تطبيقنا للاندرويد من خلال"
+       ":باستقبال سر محتواه " +
+         window.localStorage.getItem("name") +
+         " قام" +
+         "\n" +
+         messageBody +
+         "\nhttps://serr-seccret.web.app/ يمكنك الان مشاركة اصدقائك سر ما بدون الكشف عن هويتك قم بزيارة\n https://play.google.com/store/apps/details?id=com.azem.sserr او قم بتنزيل تطبيقنا للاندرويد من خلال"
      );
      toast("copied to clipboard");
   }

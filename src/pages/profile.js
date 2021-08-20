@@ -36,7 +36,7 @@ const Profile = () => {
   const { isError, error, errorHandler, sendRequset, setIsError, isLoading } =
     useHttpCleint();
   const link =
-    "https://serr.netlify.app/#/u/" + userData.name + "/" + auth.userId ||
+    "https://serr-seccret.web.app/#/u/" + userData.name + "/" + auth.userId ||
     window.localStorage.getItem("userId");
 
   useEffect(() => {
