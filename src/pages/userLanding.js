@@ -31,8 +31,8 @@ const UserLanding = () => {
     false
   );
   const location = useLocation();
-  const name = useParams().name;
   const id = useParams().uid;
+  const [name, setName] = useState();
   const [userImg, setUserImg] = useState();
   const [messageBody, setMessageBody] = useState("");
   const [isSent, setIsSent] = useState(false);
@@ -45,10 +45,11 @@ const UserLanding = () => {
     if (!location.state) {
       try {
         const data = await sendRequset(
-          `https://serr-secret.herokuapp.com/api/user?name=${name}&fbid=${id}`,
+          `https://serr-secret.herokuapp.com/api/user?fbid=${id}`,
           "GET"
         );
         setUserImg(data.result.img);
+        setName(data.result.name);
       } catch (error) {
         console.log(error);
         setIsExist(false);
@@ -68,7 +69,7 @@ const UserLanding = () => {
     if (location.state) {
       const img = location.state.img;
       setUserImg(img);
-      console.log(img);
+      setName(location.state.name);
     }
   }, [location]);
 

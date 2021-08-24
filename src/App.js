@@ -67,7 +67,7 @@ const App = () => {
         <Route path="/search" exact>
           <Search />
         </Route>
-        <Route path="/u/:name/:uid" exact>
+        <Route path="/u/:uid" exact>
           <UserLanding />
         </Route>
         <Route path="/myMessages" exact>
@@ -85,7 +85,7 @@ const App = () => {
   } else {
     routes = (
       <Switch>
-        <Route path="/u/:name/:uid" exact>
+        <Route path="/u/:uid" exact>
           <UserLanding />
         </Route>
         <Route path="/" exact>
@@ -124,7 +124,7 @@ const App = () => {
         <main>{routes}</main>
       </Router>
       <footer>
-        <p>copyright &copy; 2020 by AZEM</p>
+        <p>copyright &copy; 2021 by AZEM</p>
       </footer>
     </AuthContext.Provider>
   );

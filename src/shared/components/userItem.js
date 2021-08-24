@@ -21,29 +21,29 @@ const Image = styled.img`
   margin-left: 1rem;
 `;
 
-const BodyWrapper=styled.div`
-display: flex;
-justify-content:center;
-flex-direction: column;
-align-items: flex-start;
-`
-const Name = styled.p`
-color: black;
-font-weight: bold;
+const BodyWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
 `;
-const Username=styled.p`
-font-size: 1.2rem;
-`
+const Name = styled.p`
+  color: black;
+  font-weight: bold;
+`;
+const Username = styled.p`
+  font-size: 1.2rem;
+`;
 
-const UserItem = ({ name,username, id, img }) => {
+const UserItem = ({ name, username, id, img }) => {
   const history = useHistory();
   const onItemCLickHandler = (name, id) => {
     history.push(
       // "/u/" + name + "/" + id
       {
-        pathname: "/u/" + name + "/" + id,
+        pathname: "/u/" + id,
         search: "?query=abc",
-        state: { img: img },
+        state: { img: img, name: name },
       }
     );
   };
