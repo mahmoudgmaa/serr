@@ -39,15 +39,28 @@ const Profile = () => {
     "https://serr-seccret.web.app/#/u/" + auth.userId ||
     window.localStorage.getItem("userId");
 
-  useEffect(() => {
-    if (window.localStorage.getItem("token")) {
+  const fetchUserData = async () => {
+    try {
+      const data = await sendRequset(
+        `https://serr-secret.herokuapp.com/api/user?fbid=${
+          auth.userId || window.localStorage.getItem("userId")
+        }`,
+        "GET"
+      );
+      console.log(data);
       setUserData({
         fbid: auth.userId || window.localStorage.getItem("userId"),
-        name: auth.name || window.localStorage.getItem("name"),
-        email: auth.email || window.localStorage.getItem("email"),
-        img: auth.img || window.localStorage.getItem("img"),
-        username: auth.username || window.localStorage.getItem("username"),
+        name: data.result.name,
+        email: data.result.email,
+        img: data.result.img,
+        username: data.result.username,
       });
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    if (window.localStorage.getItem("token")) {
+      fetchUserData();
     } else {
       //if cache removed
       history.push("/");
